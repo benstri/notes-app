@@ -6,12 +6,12 @@ import 'react-native-reanimated';
 
 function App() {
   useDeviceContext(tw);
-
+  
   return (
-    <Provider store={store}>
+    <Provider store={store}> 
       <SafeAreaView>
-        <Text style={tw`w-screen mt-16 text-center text-xl`}>
-          Your app code goes here.
+        <Text style={tw`w-screen ml-5 mt-5 text-left text-xl`}>
+          Inscript - Notes App
         </Text>
       </SafeAreaView>
     </Provider>
