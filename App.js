@@ -1,4 +1,4 @@
-import { SafeAreaView, Text } from 'react-native';
+import { SafeAreaView, Text, View } from 'react-native';
 import tw, { useDeviceContext } from 'twrnc';
 import { Provider } from 'react-redux';
 import { store } from './store';
@@ -34,8 +34,8 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" compenent={HomeScreen} />
-        <Stack.Screen name="Note" compenent={NewNote} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Note" component={NewNote} />
       </Stack.Navigator>
     </NavigationContainer>
   );
