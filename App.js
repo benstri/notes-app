@@ -3,19 +3,42 @@ import tw, { useDeviceContext } from 'twrnc';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import 'react-native-reanimated'; 
+import { Button } from 'react-native-web';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+
+function HomeScreen({ navigation }) {
+  return (
+    <View style={tw`flex-1 items-center justify-center mt-10`}> 
+      <Button 
+        title="New Note"
+        onPress={() => navigation.navigate('Note')}
+      />
+    </View>
+  );
+}
+
+function NewNote() {
+  return (
+    <View style={tw`flex-1 items-center justify-center`}>
+      <Text style={tw`text-lg`}>New Note</Text>
+    </View>
+  );
+}
+
+const Stack = createNativeStackNavigator();
 
 function App() {
   useDeviceContext(tw);
   
   return (
-    <Provider store={store}> 
-      <SafeAreaView>
-        <Text style={tw`w-screen ml-5 mt-5 text-left text-xl`}>
-          Inscript - Notes App
-        </Text>
-      </SafeAreaView>
-    </Provider>
-  )
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" compenent={HomeScreen} />
+        <Stack.Screen name="Note" compenent={NewNote} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
 
 export default App;
