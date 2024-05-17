@@ -6,6 +6,7 @@ import 'react-native-reanimated';
 import { Button } from 'react-native-web';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
+import { useState } from 'react';
 
 function HomeScreen({ navigation }) { // main page
 
