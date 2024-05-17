@@ -1,4 +1,4 @@
-import { SafeAreaView, Text, View } from 'react-native';
+import { SafeAreaView, Text, View, TextInput } from 'react-native';
 import tw, { useDeviceContext } from 'twrnc';
 import { Provider } from 'react-redux';
 import { store } from './store';
@@ -7,9 +7,10 @@ import { Button } from 'react-native-web';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 
-function HomeScreen({ navigation }) {
+function HomeScreen({ navigation }) { // main page
+
   return (
-    <View style={tw`flex-1 items-center justify-center mt-10`}> 
+    <View style={tw`flex-1 items-center mt-5`}> 
       <Button 
         title="New Note"
         onPress={() => navigation.navigate('Note')}
@@ -18,10 +19,22 @@ function HomeScreen({ navigation }) {
   );
 }
 
-function NewNote() {
+function NewNote() { 
+
+  const [text, onChangeText] = useState('Note Title');
+  
   return (
-    <View style={tw`flex-1 items-center justify-center`}>
-      <Text style={tw`text-lg`}>New Note</Text>
+
+    <View style={tw`mt-5`}>
+      <TextInput
+        onChangeText={onChangeText}
+        defaultValue={text}
+      />
+      <TextInput
+        onChangeText={onChangeText}
+        defaultValue={text}
+        placeholder='Add the content to your new note!'
+      />
     </View>
   );
 }
