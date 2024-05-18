@@ -22,19 +22,23 @@ function HomeScreen({ navigation }) { // main page
 
 function NewNote() { 
 
-  const [text, onChangeText] = useState('Note Title');
+  const [text, onChangeText] = useState('New Note Title');
+  const [number, onChangeNumber] = useState('');
   
   return (
 
     <View style={tw`mt-5`}>
       <TextInput
         onChangeText={onChangeText}
-        defaultValue={text}
+        value={text}
+        style={tw`text-2xl`}
       />
       <TextInput
-        onChangeText={onChangeText}
-        defaultValue={text}
+        onChangeText={onChangeNumber}
+        value={number}
         placeholder='Add the content to your new note!'
+        style={tw`text-lg`}
+        keyboardType="numeric"
       />
     </View>
   );
@@ -46,7 +50,7 @@ function App() {
   useDeviceContext(tw);
   
   return (
-    <NavigationContainer>
+    <NavigationContainer style={tw`bg-gray-900 text-white`}>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Note" component={NewNote} />
