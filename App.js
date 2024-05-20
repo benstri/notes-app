@@ -16,7 +16,7 @@ function App() {
   useDeviceContext(tw);
   
   return (
-    <NavigationContainer style={tw`bg-gray-900 text-white`}>
+    <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Note" component={NewNote} />

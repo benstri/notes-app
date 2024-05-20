@@ -7,21 +7,18 @@ import { Button } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { useState } from 'react';
-import MasonryList from "@react-native-seoul/masonry-list";
 
-function HomeScreen({ navigation }) { // main page
-    
+function Card({notedata, navigation}) {
     return (
-      <View style={tw`flex-1 items-center mt-5`}> 
-        <Text style={tw`text-lg mb-4`}>
-          Inscript
-        </Text>
-        <Button 
-          title="New Note"
-          onPress={() => navigation.navigate('Note')}
-        />
-      </View>
+        
+        <Button
+            style={tw`rounded-m bg-slate-900 text-white`}
+            
+        >
+            <Text style={tw`text-white`}>{notedata.title}</Text>
+            <Text style={tw`text-white`}>{notedata.description}</Text>
+        </Button>
     );
 }
 
-export default HomeScreen;
+export default Card;
