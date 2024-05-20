@@ -8,7 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { useState } from 'react';
 
-function Card({notedata, navigation}) {
+function Card({notedata, navigation}) { // NOTE CARD IN GRID ON HOME SCREEN
     return (
         
         <Button

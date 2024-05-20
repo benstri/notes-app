@@ -9,11 +9,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { useState } from 'react';
 import MasonryList from "@react-native-seoul/masonry-list";
 
-function HomeScreen({ navigation }) { // main page
+function HomeScreen({ navigation }) { // HOME SCREEN PAGE
     
     return (
       <View style={tw`flex-1 items-center mt-5`}> 
-        <Text style={tw`text-lg mb-4`}>
+        <Text style={tw`text-lg mb-4 text-xl`}> 
           Inscript
         </Text>
         <Button 

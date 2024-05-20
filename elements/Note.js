@@ -8,7 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { useState } from 'react';
 
-function NewNote() { 
+function NewNote() { // NOTE SCREEN PAGE
 
     const [text, onChangeText] = useState('New Note Title');
     const [number, onChangeNumber] = useState('');
