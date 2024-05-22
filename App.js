@@ -18,8 +18,26 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Note" component={NewNote} />
+        <Stack.Screen 
+        name="Home" 
+        component={HomeScreen} 
+        options={{
+          headerStyle: tw`bg-[#151965] border-0`,
+          headerTintColor: `#fff`,
+          headerTitleStyle: tw`font-bold`,
+          headerShadowVisible: false, 
+        }}
+        />
+        <Stack.Screen 
+        name="Note" 
+        component={NewNote}
+        options={{
+          headerStyle: tw`bg-[#151965] border-0`,
+          headerTintColor: `#fff`,
+          headerTitleStyle: tw`font-bold`,
+          headerShadowVisible: false, 
+        }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

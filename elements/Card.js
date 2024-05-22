@@ -7,17 +7,18 @@ import { Button } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { useState } from 'react';
+import { TouchableOpacity } from 'react-native-web';
 
 function Card({notedata, navigation}) { // NOTE CARD IN GRID ON HOME SCREEN
     return (
         
-        <Button
+        <TouchableOpacity
             style={tw`rounded-m bg-slate-900 text-white`}
-            
+            onPress={() => navigation.navigate('Note')}
         >
-            <Text style={tw`text-white`}>{notedata.title}</Text>
-            <Text style={tw`text-white`}>{notedata.description}</Text>
-        </Button>
+            <Text style={tw`text-white`}></Text>
+            <Text style={tw`text-white`}></Text>
+        </TouchableOpacity>
     );
 }
 

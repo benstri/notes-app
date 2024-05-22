@@ -8,18 +8,22 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { useState } from 'react';
 import MasonryList from "@react-native-seoul/masonry-list";
+import { TouchableOpacity } from 'react-native-web';
 
 function HomeScreen({ navigation }) { // HOME SCREEN PAGE
     
     return (
-      <View style={tw`flex-1 items-center mt-5`}> 
-        <Text style={tw`text-lg mb-4 text-xl`}> 
-          Inscript
+      <View style={tw`flex-1 items-center pt-5 bg-[#151965]`}> 
+        <Text style={tw`mb-4 text-xl text-white font-bold`}> 
+          Inscript - Notes App
         </Text>
-        <Button 
+        <TouchableOpacity 
           title="New Note"
           onPress={() => navigation.navigate('Note')}
-        />
+          style={tw`bg-[#46B5D1] rounded-full absolute bottom-[5%] right-8 mx-auto items-center flex-1 justify-center w-12 h-12`}
+        >
+          <Text style={tw`text-white text-center text-4xl mt--1`}>+</Text>
+        </TouchableOpacity>
       </View>
     );
 }
