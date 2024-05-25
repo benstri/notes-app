@@ -6,7 +6,7 @@ import 'react-native-reanimated';
 import { Button } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import MasonryList from "@react-native-seoul/masonry-list";
 import { TouchableOpacity } from 'react-native';
 import { useSearchNotesQuery, useAddNoteMutation, useDeleteNoteMutation } from './db';
@@ -55,7 +55,7 @@ function HomeScreen({ navigation }) { // HOME SCREEN PAGE
         : <></>
       }
       <TouchableOpacity
-        onPress={() => navigation.navigate('Note')}
+        onPress={() => { addNote({title: "New Note", content: "content"}); }}
         style={tw`bg-[#46B5D1] rounded-full absolute bottom-[5%] right-8 mx-auto items-center flex-1 justify-center w-12 h-12`}
       >
         <Text style={tw`text-white text-center text-4xl mt--1`}>+</Text>
@@ -75,11 +75,11 @@ function NewNote( {route, navigation }) { // NOTE SCREEN PAGE
   function focusInput() {
     inputRef.current.focus();
   }
-/*
+
   useLayoutEffect(() => {
     navigation.setOptions({ title: route.params.data.title });
   }, []);
-  */
+  
 
   // style later
 
