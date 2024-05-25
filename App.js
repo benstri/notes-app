@@ -11,17 +11,50 @@ import MasonryList from "@react-native-seoul/masonry-list";
 import { TouchableOpacity } from 'react-native';
 import { useSearchNotesQuery, useAddNoteMutation, useDeleteNoteMutation } from './db';
 
-const Stack = createNativeStackNavigator();
+
 
 function HomeScreen({ navigation }) { // HOME SCREEN PAGE
+
+  const { data: searchData, error, isLoading } = useSearchNotesQuery("");
+  const [ addNote, { data: addNoteData, error: addNoteError }] = useAddNoteMutation();
+  const [ deleteNote ] = useDeleteNoteMutation();
+  
+  useEffect(() => {
+    if (addNoteData != undefined) {
+      console.log(addNoteData.title);
+      navigation.navigate("Edit", {data: addNoteData});
+    }
+  }, [addNoteData]);
+
+  const renderItem = ({ item }) => (
+    <TouchableOpacity onPress={() => navigation.navigate(item) } style={tw`w-[98%] mb-0.5 mx-auto bg-purple-300 rounded-sm px-1`}> 
+      <Text>
+        {item.title} 
+      </Text>
+      <Text>
+        {item.id}
+      </Text>
+    </TouchableOpacity>
+  )
     
   return (
     <View style={tw`flex-1 items-center pt-5 bg-[#151965]`}> 
       <Text style={tw`mb-4 text-xl text-white font-bold`}> 
         Inscript - Notes App
       </Text>
-      <TouchableOpacity 
-        title="New Note"
+      
+      {searchData ?
+        <MasonryList
+          style={tw`px-0.5 pt-4 pb-20`}
+          data={searchData}
+          numColumns={2}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
+        />
+        : <></>
+      }
+      <TouchableOpacity
         onPress={() => navigation.navigate('Note')}
         style={tw`bg-[#46B5D1] rounded-full absolute bottom-[5%] right-8 mx-auto items-center flex-1 justify-center w-12 h-12`}
       >
@@ -31,7 +64,9 @@ function HomeScreen({ navigation }) { // HOME SCREEN PAGE
   );
 }
 
-function NewNote() { // NOTE SCREEN PAGE
+function NewNote( {route, navigation }) { // NOTE SCREEN PAGE
+
+  
 
   const [text, onChangeText] = useState('New Note Title');
   const [number, onChangeNumber] = useState('');
@@ -40,6 +75,11 @@ function NewNote() { // NOTE SCREEN PAGE
   function focusInput() {
     inputRef.current.focus();
   }
+/*
+  useLayoutEffect(() => {
+    navigation.setOptions({ title: route.params.data.title });
+  }, []);
+  */
 
   // style later
 
@@ -62,6 +102,8 @@ function NewNote() { // NOTE SCREEN PAGE
     </View>
   );
 }
+
+const Stack = createNativeStackNavigator();
 
 function App() {
   useDeviceContext(tw);
