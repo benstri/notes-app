@@ -11,9 +11,7 @@ import MasonryList from "@react-native-seoul/masonry-list";
 import { TouchableOpacity } from 'react-native';
 import { useSearchNotesQuery, useAddNoteMutation, useDeleteNoteMutation } from './db';
 
-
-
-function HomeScreen({ navigation }) { // HOME SCREEN PAGE
+function HomeScreen({ navigation, item }) { // HOME SCREEN PAGE
 
   const { data: searchData, error, isLoading } = useSearchNotesQuery("");
   const [ addNote, { data: addNoteData, error: addNoteError }] = useAddNoteMutation();
@@ -27,7 +25,7 @@ function HomeScreen({ navigation }) { // HOME SCREEN PAGE
   }, [addNoteData]);
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate(item) } style={tw`w-[98%] mb-0.5 mx-auto bg-purple-300 rounded-sm px-1`}> 
+    <TouchableOpacity onPress={() => {navigation.navigate('Note', {note : item}); }} style={tw`w-[98%] mb-0.5 mx-auto bg-purple-300 rounded-sm px-1`}> 
       <Text>
         {item.title} 
       </Text>
@@ -64,27 +62,28 @@ function HomeScreen({ navigation }) { // HOME SCREEN PAGE
   );
 }
 
-function NewNote( {route, navigation }) { // NOTE SCREEN PAGE
+function NewNote({ route, navigation }) { // NOTE SCREEN PAGE
 
-  
-
-  const [text, onChangeText] = useState('New Note Title');
+  const [text, onChangeText, setText] = useState('New Note Title');
   const [number, onChangeNumber] = useState('');
   const inputRef = useRef(null);
+  const {note} = route.params;
 
   function focusInput() {
     inputRef.current.focus();
   }
-
+  /*
   useLayoutEffect(() => {
     navigation.setOptions({ title: route.params.data.title });
   }, []);
+  */
   
 
   // style later
 
   return (
     <View style={tw`pt-5 pl-5 pr-5`}>
+      
       <TextInput
         onChangeText={onChangeText}
         value={text}
@@ -99,6 +98,7 @@ function NewNote( {route, navigation }) { // NOTE SCREEN PAGE
         keyboardType="numeric"
         ref={inputRef}
       />
+      
     </View>
   );
 }
