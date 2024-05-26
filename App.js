@@ -77,6 +77,7 @@ function NewNote({ route, navigation }) { // NOTE SCREEN PAGE
   function focusInput() {
     inputRef.current.focus();
   }
+
   /*
   useLayoutEffect(() => {
     navigation.setOptions({ title: route.params.data.title });
@@ -98,9 +99,11 @@ function NewNote({ route, navigation }) { // NOTE SCREEN PAGE
         onChangeText={onChangeNumber}
         value={number}
         placeholder='Add the content to your new note!'
-        style={tw`text-lg`}
+        style={tw`text-lg h-screen`}
         keyboardType="numeric"
         ref={inputRef}
+        multiline={true}
+        
       />
       
     </View>
