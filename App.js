@@ -25,18 +25,23 @@ function HomeScreen({ navigation, item }) { // HOME SCREEN PAGE
   }, [addNoteData]);
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => {navigation.navigate('Note', {note : item}); }} style={tw`w-[98%] mb-0.5 mx-auto bg-purple-300 rounded-sm px-1`}> 
-      <Text>
+    <TouchableOpacity onPress={() => {navigation.navigate('Note', {note : item}); }} style={tw`w-[98%] mb-0.5 mx-auto bg-[#DBE2EF] p-1 rounded px-1`}> 
+      <Text style={tw`text-xl font-bold`}>
         {item.title} 
       </Text>
-      <Text>
+      <Text style={tw`text-lg`}>
         {item.id}
       </Text>
+      <TouchableOpacity onPress={() => deleteNote(item)} style={tw`items-start`}> 
+        <Text style={tw`p-1 text-base bg-[#F67280] mb-1 rounded`}>
+          Delete
+        </Text>
+      </TouchableOpacity>
     </TouchableOpacity>
   )
     
   return (
-    <View style={tw`flex-1 items-center pt-5 bg-[#151965]`}> 
+    <View style={tw`flex-1 items-center pt-5 bg-[#3F72AF]`}> 
       <Text style={tw`mb-4 text-xl text-white font-bold`}> 
         Inscript - Notes App
       </Text>
@@ -75,9 +80,8 @@ function NewNote({ route, navigation }) { // NOTE SCREEN PAGE
   /*
   useLayoutEffect(() => {
     navigation.setOptions({ title: route.params.data.title });
-  }, []);
+  }, []); 
   */
-  
 
   // style later
 
@@ -116,7 +120,7 @@ function App() {
           name="Home" 
           component={HomeScreen} 
           options={{
-            headerStyle: tw`bg-[#151965] border-0`,
+            headerStyle: tw`bg-[#112D4E] border-0`,
             headerTintColor: `#fff`,
             headerTitleStyle: tw`font-bold`,
             headerShadowVisible: false, 
@@ -126,7 +130,7 @@ function App() {
           name="Note" 
           component={NewNote}
           options={{
-            headerStyle: tw`bg-[#151965] border-0`,
+            headerStyle: tw`bg-[#112D4E] border-0`,
             headerTintColor: `#fff`,
             headerTitleStyle: tw`font-bold`,
             headerShadowVisible: false, 
