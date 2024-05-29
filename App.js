@@ -29,7 +29,7 @@ function HomeScreen({ navigation, item }) { // HOME SCREEN PAGE
         {item.title} 
       </Text>
       <Text style={tw`text-lg`}>
-        {item.id}
+        {item.content}
       </Text>
       <TouchableOpacity onPress={() => deleteNote(item)} style={tw`items-start`}> 
         <Text style={tw`p-1 text-base bg-[#F67280] mb-1 rounded`}>
@@ -57,7 +57,7 @@ function HomeScreen({ navigation, item }) { // HOME SCREEN PAGE
         : <></>
       }
       <TouchableOpacity
-        onPress={() => { addNote({title: "New Note", content: "content"}); }}
+        onPress={() => { addNote({title: "New Note", content: "Edit your note with a description!"}); }}
         style={tw`bg-[#46B5D1] rounded-full absolute bottom-[5%] right-8 mx-auto items-center flex-1 justify-center w-12 h-12`}
       >
         <Text style={tw`text-white text-center text-4xl mt--1`}>+</Text>
@@ -66,14 +66,19 @@ function HomeScreen({ navigation, item }) { // HOME SCREEN PAGE
   );
 }
 
-function NewNote({ navigation, item }) { // NOTE SCREEN PAGE
+function NewNote({ route }) { // NOTE SCREEN PAGE
   const [updateNote] = useUpdateNoteMutation();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState(title);
+  const [content, setContent] = useState(content);
   const inputRef = useRef(null);
+  const {note} = route.params;
 
   function focusInput() {
     inputRef.current.focus();
+  }
+
+  saveNote = () => {
+    updateNote({id : note.id, content : content, title : title});
   }
 
   // style later
@@ -96,8 +101,11 @@ function NewNote({ navigation, item }) { // NOTE SCREEN PAGE
         multiline={true}
       />
       <TouchableOpacity
-        onPress={() => updateNote(item)}
+        onPress={saveNote}
         style={tw`bg-[#46B5D1] absolute bottom-[5%] right-8 mx-auto items-center flex-1 justify-center rounded p-1`}
+        onSubmitEditing={() => {
+          alert('Your note has been saved.')
+        }}
       >
         <Text style={tw`text-white text-center text-2xl mt--1`}>Save</Text>
       </TouchableOpacity>
