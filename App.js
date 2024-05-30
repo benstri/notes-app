@@ -68,8 +68,8 @@ function HomeScreen({ navigation, item }) { // HOME SCREEN PAGE
 
 function NewNote({ route }) { // NOTE SCREEN PAGE
   const [updateNote] = useUpdateNoteMutation();
-  const [title, setTitle] = useState(title);
-  const [content, setContent] = useState(content);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const inputRef = useRef(null);
   const {note} = route.params;
 
