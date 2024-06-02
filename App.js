@@ -19,7 +19,7 @@ function HomeScreen({ navigation, item }) { // HOME SCREEN PAGE
   useEffect(() => {
     if (addNoteData != undefined) {
       console.log(addNoteData.title);
-      navigation.navigate("Edit", {data: addNoteData});
+      navigation.navigate("Note", {note: addNoteData});
     }
   }, [addNoteData]);
 
@@ -68,10 +68,11 @@ function HomeScreen({ navigation, item }) { // HOME SCREEN PAGE
 
 function NewNote({ route }) { // NOTE SCREEN PAGE
   const [updateNote] = useUpdateNoteMutation();
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const inputRef = useRef(null);
   const {note} = route.params;
+  const [title, setTitle] = useState(note.title);
+  const [content, setContent] = useState(note.content);
+  const inputRef = useRef(null);
+  
 
   function focusInput() {
     inputRef.current.focus();
