@@ -11,10 +11,12 @@ import { TouchableOpacity } from 'react-native';
 import { useSearchNotesQuery, useAddNoteMutation, useDeleteNoteMutation, useUpdateNoteMutation } from './db';
 
 function HomeScreen({ navigation, item }) { // HOME SCREEN PAGE
-
-  const { data: searchData, error, isLoading } = useSearchNotesQuery("");
+  const [search, setSearch] = useState("");
+  const { data: searchData, error: searchNotesError, isLoading: searchNotesIsLoading } = useSearchNotesQuery(""+search);
   const [ addNote, { data: addNoteData, error: addNoteError }] = useAddNoteMutation();
   const [ deleteNote ] = useDeleteNoteMutation();
+  const inputRef = useRef(null);
+
   
   useEffect(() => {
     if (addNoteData != undefined) {
@@ -44,6 +46,13 @@ function HomeScreen({ navigation, item }) { // HOME SCREEN PAGE
       <Text style={tw`mb-4 text-xl text-white font-bold`}> 
         Inscript - Notes App
       </Text>
+      <TextInput
+        placeholder='Search'
+        value={search}
+        ref={inputRef}
+        style={tw`text-lg bg-slate-300 rounded p-1`}
+        onChangeText={(search) => {setSearch(search)}}
+      />
     
       {searchData ?
         <MasonryList
@@ -57,7 +66,7 @@ function HomeScreen({ navigation, item }) { // HOME SCREEN PAGE
         : <></>
       }
       <TouchableOpacity
-        onPress={() => { addNote({title: "New Note", content: "Edit your note with a description!"}); }}
+        onPress={() => { addNote({title: "", content: ""}); }}
         style={tw`bg-[#46B5D1] rounded-full absolute bottom-[5%] right-8 mx-auto items-center flex-1 justify-center w-12 h-12`}
       >
         <Text style={tw`text-white text-center text-4xl mt--1`}>+</Text>
