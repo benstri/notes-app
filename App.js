@@ -44,9 +44,9 @@ function HomeScreen({ navigation, item }) { // HOME SCREEN PAGE
   )
     
   return (
-    <View style={tw`flex-1 items-center pt-5 bg-[#3F72AF]`}> 
-      <Text style={tw`mb-4 text-xl text-white font-bold`}>
-        Inscript - Notes App 
+    <View style={tw`flex-1 items-center pt-5`}> 
+      <Text style={tw`mb-4 text-xl font-bold`}>
+        Notes App 
       </Text> 
       <TextInput // search bar
         placeholder='Search'
@@ -94,11 +94,11 @@ function NewNote({ route }) { // NOTE SCREEN PAGE
   }
 
   return (
-    <View style={tw`pt-5 pl-5 pr-5 bg-[#3F72AF] h-full`}>
+    <View style={tw`pt-5 pl-5 pr-5 h-full`}>
       <TextInput // title of note
         onChangeText={(text) => setTitle(text)}
         value={title}
-        style={tw`text-2xl text-white`}
+        style={tw`text-2xl`}
         ref={inputRef}
         placeholder='New Note Title'
       />
@@ -106,7 +106,7 @@ function NewNote({ route }) { // NOTE SCREEN PAGE
         onChangeText={(text) => setContent(text)}
         value={content}
         placeholder='Add the content to your new note!'
-        style={tw`text-lg h-4/5 text-white`}
+        style={tw`text-lg h-4/5`}
         ref={inputRef}
         multiline={true}
       />
@@ -136,18 +136,16 @@ function App() {
           name="Home" 
           component={HomeScreen} 
           options={{
-            headerStyle: tw`bg-[#112D4E] border-0`,
-            headerTintColor: `#fff`,
+            headerStyle: tw`border-0`,
             headerTitleStyle: tw`font-bold`,
             headerShadowVisible: false, 
           }}
           />
-          <Stack.Screen 
-          name="Note" 
+          <Stack.Screen
+          name="Note"
           component={NewNote}
           options={{
-            headerStyle: tw`bg-[#112D4E] border-0`,
-            headerTintColor: `#fff`,
+            headerStyle: tw`border-0`,
             headerTitleStyle: tw`font-bold`,
             headerShadowVisible: false, 
           }}
