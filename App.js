@@ -16,7 +16,6 @@ function HomeScreen({ navigation, item }) { // HOME SCREEN PAGE
   const [search, setSearch] = useState("");
   const { data: searchData, error: searchNotesError, isLoading: searchNotesIsLoading } = useSearchNotesQuery(""+search);
   const [ addNote, { data: addNoteData, error: addNoteError }] = useAddNoteMutation();
-  const [ deleteNote ] = useDeleteNoteMutation();
   const inputRef = useRef(null);
 
   
@@ -35,11 +34,6 @@ function HomeScreen({ navigation, item }) { // HOME SCREEN PAGE
       <Text style={tw`text-lg`}>
         {item.content} 
       </Text>
-      <TouchableOpacity onPress={() => deleteNote(item)} style={tw`items-start`}> 
-        <Text style={tw`p-1 text-base bg-[#F67280] mb-1 rounded`}> 
-          Delete 
-        </Text>
-      </TouchableOpacity>
     </TouchableOpacity>
   )
     
@@ -52,7 +46,7 @@ function HomeScreen({ navigation, item }) { // HOME SCREEN PAGE
         placeholder='Search'
         value={search}
         ref={inputRef}
-        style={tw`text-lg bg-slate-300 rounded p-1`}
+        style={tw`text-lg bg-slate-300 rounded p-1 w-full ml-2 mr-2`}
         onChangeText={(search) => {setSearch(search)}}
       />
     
@@ -77,48 +71,52 @@ function HomeScreen({ navigation, item }) { // HOME SCREEN PAGE
   );
 }
 
-function NewNote({ route }) { // NOTE SCREEN PAGE
+function NewNote({ item, route, navigation }) { // NOTE SCREEN PAGE
   const [updateNote] = useUpdateNoteMutation();
   const {note} = route.params;
   const [title, setTitle] = useState(note.title);
   const [content, setContent] = useState(note.content);
   const inputRef = useRef(null);
+  const [ deleteNote ] = useDeleteNoteMutation();
   
+  useEffect(() => { // delete button in head of the edit screen
+    updateNote(note.id, note.title, note.content)
+    navigation.setOptions({
+      headerRight: () => 
+      <TouchableOpacity 
+        onPress={() => {
+          navigation.popToTop(); // makes sure the screen returns to home upon deletion
+          deleteNote(note);
+        }} 
+        >
+          <Text style={tw`mr-5 text-xl`}>
+            🗑️
+          </Text>
+        </TouchableOpacity>,
+    });
+  }, [note.data]);
 
   function focusInput() { // focuses on text input, makes it more user friendly
     inputRef.current.focus();
-  }
-
-  saveNote = () => { // save note function
-    updateNote({id : note.id, content : content, title : title});
   }
 
   return (
     <View style={tw`pt-5 pl-5 pr-5 h-full`}>
       <TextInput // title of note
         onChangeText={(text) => setTitle(text)}
-        value={title}
+        defaultValue={title}
         style={tw`text-2xl`}
         ref={inputRef}
         placeholder='New Note Title'
       />
       <TextInput // content of note
         onChangeText={(text) => setContent(text)}
-        value={content}
+        defaultValue={content}
         placeholder='Add the content to your new note!'
         style={tw`text-lg h-4/5`}
         ref={inputRef}
         multiline={true}
       />
-      <TouchableOpacity // save note button
-        onPress={saveNote}
-        style={tw`bg-[#46B5D1] absolute bottom-[5%] right-8 mx-auto items-center flex-1 justify-center rounded p-1`}
-        onSubmitEditing={() => {
-          alert('Your note has been saved.')
-        }}
-      >
-        <Text style={tw`text-white text-center text-2xl mt--1`}>Save</Text>
-      </TouchableOpacity>
     </View>
   );
 }
