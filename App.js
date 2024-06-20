@@ -80,7 +80,7 @@ function NewNote({ item, route, navigation }) { // NOTE SCREEN PAGE
   const [ deleteNote ] = useDeleteNoteMutation();
   
   useEffect(() => { // delete button in head of the edit screen
-    updateNote(note.id, note.title, note.content)
+    updateNote({data : note.data});
     navigation.setOptions({
       headerRight: () => 
       <TouchableOpacity 
@@ -88,12 +88,19 @@ function NewNote({ item, route, navigation }) { // NOTE SCREEN PAGE
           navigation.popToTop(); // makes sure the screen returns to home upon deletion
           deleteNote(note);
         }} 
-        >
-          <Text style={tw`mr-5 text-xl`}>
-            🗑️
-          </Text>
-        </TouchableOpacity>,
+      >
+        <Text style={tw`mr-5 text-xl`}>
+          🗑️
+        </Text>
+      </TouchableOpacity>,
     });
+  }, [note.data]);
+
+  useEffect(() => {
+    updateNote({data : note.data});
+    if (title === "" && content === "") {
+      deleteNote(note);
+    }
   }, [note.data]);
 
   function focusInput() { // focuses on text input, makes it more user friendly
@@ -104,14 +111,14 @@ function NewNote({ item, route, navigation }) { // NOTE SCREEN PAGE
     <View style={tw`pt-5 pl-5 pr-5 h-full`}>
       <TextInput // title of note
         onChangeText={(text) => setTitle(text)}
-        defaultValue={title}
+        defaultValue={note.title}
         style={tw`text-2xl`}
         ref={inputRef}
         placeholder='New Note Title'
       />
       <TextInput // content of note
         onChangeText={(text) => setContent(text)}
-        defaultValue={content}
+        defaultValue={note.content}
         placeholder='Add the content to your new note!'
         style={tw`text-lg h-4/5`}
         ref={inputRef}
