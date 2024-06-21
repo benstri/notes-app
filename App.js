@@ -80,7 +80,7 @@ function NewNote({ route, navigation }) { // NOTE SCREEN PAGE
   const [ deleteNote ] = useDeleteNoteMutation();
   
   useEffect(() => { // delete button in head of the edit screen
-    updateNote({data : note.data});
+    updateNote({ id: note.id, title: title, content: content });
     navigation.setOptions({
       headerRight: () => 
       <TouchableOpacity 
@@ -97,7 +97,7 @@ function NewNote({ route, navigation }) { // NOTE SCREEN PAGE
   }, [note.data]);
 
   useEffect(() => {
-    updateNote({data : note.data});
+    updateNote({ id: note.id, title: title, content: content });
     if (title === "" && content === "") {
       deleteNote(note);
     }
