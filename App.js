@@ -94,18 +94,20 @@ function NewNote({ route, navigation }) { // NOTE SCREEN PAGE
         </Text>
       </TouchableOpacity>,
     });
-  }, [note.data]);
-
-  useEffect(() => {
-    updateNote({ id: note.id, title: title, content: content });
-    if (title === "" && content === "") {
-      deleteNote(note);
-    }
-  }, [note.data]);
-
+  }, [note]);
+  
   function focusInput() { // focuses on text input, makes it more user friendly
     inputRef.current.focus();
   }
+
+  useEffect(() => {
+    updateNote({ id: note.id, title: title, content: content })
+    navigation.addListener("beforeRemove", (_event) => {
+      if (title === "" && content === "") { 
+        deleteNote(note);
+      }
+    });
+  }, [navigation, note]);
 
   return (
     <View style={tw`pt-5 pl-5 pr-5 h-full`}>
