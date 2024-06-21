@@ -110,14 +110,14 @@ function NewNote({ route, navigation }) { // NOTE SCREEN PAGE
   return (
     <View style={tw`pt-5 pl-5 pr-5 h-full`}>
       <TextInput // title of note
-        onChangeText={(text) => updateNote({title : text})}
+        onChangeText={(text) => updateNote({ id: note.id, title: text, content: content })}
         defaultValue={title}
         style={tw`text-2xl`}
         ref={inputRef}
         placeholder='New Note Title'
       />
       <TextInput // content of note
-        onChangeText={(text) => updateNote({content : text})}
+        onChangeText={(text) => updateNote({id: note.id, title: title, content : text})}
         defaultValue={content}
         placeholder='Add the content to your new note!'
         style={tw`text-lg h-4/5`}
