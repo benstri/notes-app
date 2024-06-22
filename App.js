@@ -46,7 +46,7 @@ function HomeScreen({ navigation, item }) { // HOME SCREEN PAGE
         placeholder='Search'
         value={search}
         ref={inputRef}
-        style={tw`text-lg bg-slate-300 rounded p-1 w-full`}
+        style={tw`text-lg bg-slate-300 rounded p-1 w-screen`}
         onChangeText={(search) => {setSearch(search)}}
       />
     
@@ -96,7 +96,6 @@ function NewNote({ route, navigation }) { // NOTE SCREEN PAGE
     setContent(text);
     saveNote(text);
   }
-
   
   useLayoutEffect(() => { // delete button in head of the edit screen
     saveNote();
@@ -113,18 +112,18 @@ function NewNote({ route, navigation }) { // NOTE SCREEN PAGE
         </Text>
       </TouchableOpacity>,
     });
-  }, [note]);
+  }, [title, content]);
 
-  /*
-  useEffect(() => {
+  
+  useEffect(() => { // will delete the note if it is empty
     saveNote();
     navigation.addListener("beforeRemove", (event) => {
       if (title === ("") && content === ("")) { 
         deleteNote(note);
       }
     });
-  }, [navigation, note]);
-  */
+  }, [navigation, title, content]);
+  
 
   return (
     <View style={tw`pt-5 pl-5 pr-5 h-full`}>
