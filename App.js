@@ -5,7 +5,7 @@ import { store } from './store';
 import 'react-native-reanimated'; 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import MasonryList from "@react-native-seoul/masonry-list";
 import { TouchableOpacity } from 'react-native';
 import { useSearchNotesQuery, useAddNoteMutation, useDeleteNoteMutation, useUpdateNoteMutation } from './db';
@@ -72,15 +72,34 @@ function HomeScreen({ navigation, item }) { // HOME SCREEN PAGE
 }
 
 function NewNote({ route, navigation }) { // NOTE SCREEN PAGE
-  const [updateNote] = useUpdateNoteMutation();
   const {note} = route.params;
-  const [title] = useState(note.title);
-  const [content] = useState(note.content);
+  const [title, setTitle] = useState(note.title);
+  const [content, setContent] = useState(note.content);
   const inputRef = useRef(null);
   const [ deleteNote ] = useDeleteNoteMutation();
-  
-  useEffect(() => { // delete button in head of the edit screen
+  const [updateNote] = useUpdateNoteMutation();
+
+  const focusInput = () => { // focuses on text input, makes it more user friendly
+    inputRef.current.focus();
+  }
+
+  const saveNote = () => {
     updateNote({ id: note.id, title: title, content: content });
+  }
+
+  const changeTitle = (text) => {
+    setTitle(text);
+    saveNote(text);
+  }
+
+  const changeContent = (text) => {
+    setContent(text);
+    saveNote(text);
+  }
+
+  
+  useLayoutEffect(() => { // delete button in head of the edit screen
+    saveNote();
     navigation.setOptions({
       headerRight: () => 
       <TouchableOpacity 
@@ -95,36 +114,34 @@ function NewNote({ route, navigation }) { // NOTE SCREEN PAGE
       </TouchableOpacity>,
     });
   }, [note]);
-  
-  function focusInput() { // focuses on text input, makes it more user friendly
-    inputRef.current.focus();
-  }
 
+  /*
   useEffect(() => {
-    updateNote({ id: note.id, title: title, content: content })
-    navigation.addListener("beforeRemove", (_event) => {
-      if (title === "" && content === "") { 
+    saveNote();
+    navigation.addListener("beforeRemove", (event) => {
+      if (title === ("") && content === ("")) { 
         deleteNote(note);
       }
     });
   }, [navigation, note]);
+  */
 
   return (
     <View style={tw`pt-5 pl-5 pr-5 h-full`}>
       <TextInput // title of note
-        onChangeText={(text) => updateNote({ id: note.id, title: text, content: content })}
         defaultValue={title}
         style={tw`text-2xl`}
         ref={inputRef}
         placeholder='New Note Title'
+        onChangeText={changeTitle}
       />
       <TextInput // content of note
-        onChangeText={(text) => updateNote({id: note.id, title: title, content : text})}
         defaultValue={content}
         placeholder='Add the content to your new note!'
         style={tw`text-lg h-4/5`}
         ref={inputRef}
         multiline={true}
+        onChangeText={changeContent}
       />
     </View>
   );
