@@ -100,6 +100,7 @@ function NewNote({ route, navigation }) { // NOTE SCREEN PAGE
   useLayoutEffect(() => { // delete button in head of the edit screen
     saveNote();
     navigation.setOptions({
+      title: title,
       headerRight: () => 
       <TouchableOpacity 
         onPress={() => {
@@ -112,18 +113,18 @@ function NewNote({ route, navigation }) { // NOTE SCREEN PAGE
         </Text>
       </TouchableOpacity>,
     });
-  }, [title, content]);
+  }, [navigation, note, title, content]);
 
-  
-  useEffect(() => { // will delete the note if it is empty
+  /*
+  useEffect(() => { // will delete the note if it is empty, for some reason doesn't work right now
     saveNote();
     navigation.addListener("beforeRemove", (event) => {
       if (title === ("") && content === ("")) { 
         deleteNote(note);
       }
     });
-  }, [navigation, title, content]);
-  
+  }, [navigation, note, title, content]);
+  */ 
 
   return (
     <View style={tw`pt-5 pl-5 pr-5 h-full`}>
