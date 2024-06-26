@@ -116,7 +116,7 @@ function NewNote({ route, navigation }) { // NOTE SCREEN PAGE
   }, [navigation, note, title, content]);
 
   /*
-  useEffect(() => { // will delete the note if it is empty, for some reason doesn't work right now
+  useEffect(() => { // will delete the note if it is empty. -- for some reason doesn't work right now, tried my best
     saveNote();
     navigation.addListener("beforeRemove", (event) => {
       if (title === ("") && content === ("")) { 
