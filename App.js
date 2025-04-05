@@ -162,6 +162,7 @@ function App() {
             headerStyle: tw`border-0`,
             headerTitleStyle: tw`font-bold`,
             headerShadowVisible: false, 
+            headerBackVisible: true, // Ensure the back button is visible
           }}
           />
         </Stack.Navigator>
