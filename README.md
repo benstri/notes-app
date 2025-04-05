@@ -1,4 +1,4 @@
-# 📝 NotesApp
+# NotesApp
 
 NotesApp is a simple note-taking application built with React Native and Expo. It allows users to create, update, search, and delete notes. The app features a user-friendly interface, where notes are displayed in a masonry grid layout. Users can easily add and edit notes with rich content.
 
